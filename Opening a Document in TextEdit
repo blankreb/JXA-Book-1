@@ -1,0 +1,20 @@
+// JXA Script: Opening a Document in TextEdit
+// Explanation: This script creates a new document in TextEdit with specified content using font, color, and size in two entries.
+    
+TextEdit = Application("TextEdit")
+TextEdit.activate()
+   
+nd = TextEdit.Document().make()
+dateString = new Date().toString()
+slug = "Created: " + dateString + "\n\n"
+	
+mySlug = TextEdit.Paragraph({font:"Noteworthy",color:"black",size:18}, slug)
+
+content = "You write in the style of Tech Executive and your form is chatty and you use details that are informative and your use cases are \"write a tweet\" and your role is comedy writer. Write about the following: \"holy mary mother of god pray for us sinners\" and that's the last words of Fredo Corleone."
+   	
+nd.paragraphs.push(mySlug)
+	
+para = TextEdit.Paragraph({font:"Noteworthy",color:"black",size:14}, content)
+  
+nd.paragraphs.push(para)
+
