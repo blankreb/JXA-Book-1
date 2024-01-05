@@ -1,0 +1,66 @@
+pages = Application("Pages")
+se = Application("System Events")
+music = Application("Music")
+pages.includeStandardAdditions = true
+
+/* Objective-C Bridge
+JavaScript for Automation has a built-in Objective-C bridge that enables you to access the file system and build Cocoa applications. The primary access points for the Objective-C bridge are the global properties ObjC and $. Got this snippet from scripting legend Shane Stanley */
+
+ObjC.import('AppKit')
+
+// Get the visible frame of the main screen
+mainScreen = $.NSScreen.mainScreen
+visibleFrame = mainScreen.visibleFrame
+
+// Extracting the frame details
+theX = visibleFrame.origin.x
+theY = visibleFrame.origin.y
+theWidth = visibleFrame.size.width
+theHeight = visibleFrame.size.height
+
+// End Scripting Bridge 
+
+// Output the frame details
+console.log("X: " + theX)
+console.log("Y: " + theY)
+console.log("Width: " + theWidth)
+console.log("Height: " + theHeight)
+
+pages.activate()
+
+fd = pages.windows[0]
+
+se.keystroke('i', { using: [ 'option down','command down' ] })
+
+se.keystroke('0', { using: 'command down' })
+
+se.keystroke('t', { using: [ 'option down','command down' ] })
+
+winName = fd.name()
+winBounds = fd.bounds()
+winBoundsText = winBounds.x + ',' + winBounds.y + ',' + winBounds.width + ',' + winBounds.height
+winZoom = fd.zoomed()
+
+// the y value is plus 25 for the menu bar
+fd.bounds = {"x":0, "y":25, "width":theWidth, "height":theHeight}
+
+// Get the name of the playlist you want to play
+playlistName = "Oldfield" // Replace with your playlist name
+
+// Check if the playlist exists
+playlists = music.playlists.whose({name: playlistName})
+if (playlists.length === 0) {
+    throw new Error('Playlist not found')
+}
+
+// Get the first matching playlist
+playlist = playlists[0]
+
+music.shuffleEnabled = true
+
+// Play the playlist
+music.play(playlist)
+
+//pageText = pages.documents[0].bodyText()
+
+console.log(winName + ' ' + winBoundsText + ' ' + winZoom)
