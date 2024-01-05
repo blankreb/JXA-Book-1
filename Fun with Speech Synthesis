@@ -1,0 +1,18 @@
+JXA Script: Fun with  Speech Synthesis
+// Note: Ensure that the Samantha voice is installed and available on your macOS system.
+// Check system settings under System Voice to see available voices.
+
+// Access the Standard Additions for speech synthesis
+standardAdditions = Application.currentApplication()
+standardAdditions.includeStandardAdditions = true
+
+// Prepare a message to speak
+message = "Hello, this is Samantha speaking through your Mac."
+
+// Using the 'say' command with a Siri voice
+standardAdditions.say(message, {
+    using: 'Samantha',   // Specify a voice
+    pitch: 50,       // Set the pitch (0 to 100)
+    rate: 200        // Set the speaking rate (words per minute)
+})
+
