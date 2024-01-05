@@ -1,0 +1,21 @@
+// JXA Script : Fun with Folders and Jokes
+/* This simple yet engaging script illustrates the basics of JXA: accessing and controlling macOS applications, manipulating the file system, and interacting with the user. As you progress through this chapter, you'll explore these concepts in greater depth, unlocking the full potential of JXA for automating and enhancing your macOS experience. */
+
+
+// Access the Finder application
+finder = Application('Finder')
+
+// Create a new folder on the desktop
+desktopPath = finder.desktop.folder
+desktopPath.make(new Folder({ withProperties: { name: 'Surprise' } }))
+
+// Prepare a joke
+joke = "Why don't scientists trust atoms? Because they make up everything!"
+
+// Access the Standard Additions for user interaction
+StandardAdditions = Application.currentApplication()
+StandardAdditions.includeStandardAdditions = true
+
+// Display a dialog with the joke
+StandardAdditions.displayDialog(joke, { withTitle: 'JXA Joke' })
+
