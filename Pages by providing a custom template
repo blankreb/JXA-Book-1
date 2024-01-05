@@ -1,0 +1,34 @@
+// This script enhances user interaction with Pages by providing a custom template selection process and automated document creation. It's a good example of how JXA can be used to automate tasks in macOS applications in a user-friendly manner.
+
+pagesApp = Application('Pages')
+pagesApp.includeStandardAdditions = true
+
+// Activate Pages to bring it to the foreground
+pagesApp.activate()
+
+// Wait to make sure Pages is in the foreground
+delay(1)
+
+templa = pagesApp.templates.name()
+shortTempla = templa.slice(0, 10)
+
+pick = pagesApp.chooseFromList(shortTempla, {
+		withTitle: 'Template Picker',
+		withPrompt: 'Pick a template',
+		defaultItems: ['Blank'],
+		okButtonName: 'Choose',
+		cancelButtonName: 'Reject',
+		multipleSelectionsAllowed:false,
+		emptySelectionAllowed:true 
+		})
+		
+if(pick == false) {
+	currentApp.displayAlert('No Selection')
+}else{
+	makePage(pick[0])
+}
+
+function makePage(temp){
+t = pagesApp.templates[temp]
+nd = pagesApp.Document({documentTemplate:t}).make(})
+}
